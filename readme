@@ -84,4 +84,24 @@ sudo systemctl restart kibana
 sudo journalctl -u kibana -f
 ---------
 curl http://localhost:5601/api/status
+---------------------------nginx--------------------
+server {
+    listen 9200;
+    location / {
+        proxy_pass https://localhost:9200;
+        proxy_ssl_verify off;
+    }
+}
+
+server {
+    listen 5601;
+    location / {
+        proxy_pass http://localhost:5601;
+    }
+}
+-----------------------------------------
+sudo ln -s /etc/nginx/sites-available/elastic /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+------------------------------------------
+ssh -L 5601:localhost:5601 user@192.168.13.229
 
