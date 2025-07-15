@@ -62,4 +62,24 @@ sudo systemctl restart kibana
 curl http://localhost:5601/api/status
 -----------
 sudo filebeat setup --dashboards
+------------------------kibana-config--------------------
+curl -u elastic -k -X POST "https://localhost:9200/_security/user/kibana_system" -H "Content-Type: application/json" -d '
+{
+  "password" : "KibanaUserPassword123!",
+  "roles" : [ "kibana_system" ],
+  "full_name" : "Kibana System User"
+}'
+---------
+sudo nano /etc/kibana/kibana.yml
+---------
+elasticsearch.hosts: ["https://localhost:9200"]
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "KibanaUserPassword123!"
+elasticsearch.ssl.verificationMode: none
+---------
+sudo systemctl restart kibana
+---------
+sudo journalctl -u kibana -f
+---------
+curl http://localhost:5601/api/status
 
