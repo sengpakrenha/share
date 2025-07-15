@@ -63,12 +63,14 @@ curl http://localhost:5601/api/status
 -----------
 sudo filebeat setup --dashboards
 ------------------------kibana-config--------------------
-curl -u elastic -k -X POST "https://localhost:9200/_security/user/kibana_system" -H "Content-Type: application/json" -d '
+curl -u "elastic:=qoUj2rZFAm46rQf=Vix" -k -X POST "https://localhost:9200/_security/user/kibana_system" \
+  -H "Content-Type: application/json" -d '
 {
-  "password" : "KibanaUserPassword123!",
+  "password" : "Kibana@123456!",
   "roles" : [ "kibana_system" ],
   "full_name" : "Kibana System User"
 }'
+
 ---------
 sudo nano /etc/kibana/kibana.yml
 ---------
