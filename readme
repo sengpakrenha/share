@@ -32,4 +32,34 @@ sudo systemctl start kibana
 curl http://localhost:5601/api/status
 ----
 sudo filebeat setup --dashboards
-----
+--------------------------elasticsearch----------------------
+sudo apt-get install apt-transport-https
+curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | \
+  sudo gpg --dearmor -o /usr/share/keyrings/elastic-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/elastic-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | \
+  sudo tee /etc/apt/sources.list.d/elastic-8.x.list
+
+sudo apt-get update
+---------------
+sudo apt-get install elasticsearch
+----------
+sudo systemctl enable elasticsearch
+sudo systemctl start elasticsearch
+---------
+curl -k http://localhost:9200
+---------
+sudo cat /var/lib/elasticsearch/elastic-search-setup-passwords.log
+---------
+sudo nano /etc/kibana/kibana.yml
+---------
+elasticsearch.hosts: ["http://localhost:9200"]
+elasticsearch.username: "elastic"
+elasticsearch.password: "the-password-you-got"
+-----------
+sudo systemctl restart kibana
+-----------
+curl http://localhost:5601/api/status
+-----------
+sudo filebeat setup --dashboards
+
