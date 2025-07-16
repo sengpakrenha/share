@@ -116,4 +116,20 @@ sudo ln -s /etc/nginx/sites-available/elastic /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ------------------------------------------
 ssh -L 5601:localhost:5601 user@192.168.13.229
+-----------------------------------------------
+server {
+    listen 0.0.0.0:8043;  # or use 443 if you're adding SSL
+    server_name wazuh.local;
 
+    location / {
+        proxy_pass https://192.168.13.177;  # Wazuh server IP
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_ssl_verify off;  # since Wazuh might use self-signed cert
+    }
+}
+-------------------------------------------------
+sudo ln -s /etc/nginx/sites-available/wazuh /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+-------------------------------
