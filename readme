@@ -25,3 +25,5 @@ curl -ku admin:c5uUuWDF0fXzx2nAc1+Yg*if3vZI+T.X https://127.0.0.1:9200/_cluster/
 
 # Heap & mem stats
 curl -ku admin:c5uUuWDF0fXzx2nAc1+Yg*if3vZI+T.X https://127.0.0.1:9200/_nodes/stats/jvm?pretty | jq '.nodes[].jvm.mem | {heap_used_in_bytes, heap_max_in_bytes}'
+
+sudo sed -i 's/^-Xms.*/-Xms2g/; s/^-Xmx.*/-Xmx2g/' /etc/wazuh-indexer/jvm.options
