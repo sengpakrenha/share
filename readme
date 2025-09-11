@@ -42,3 +42,10 @@ sudo chown -R wazuh-indexer:wazuh-indexer /var/lib/wazuh-indexer /var/log/wazuh-
 grep -n 'bootstrap.memory_lock' /etc/wazuh-indexer/opensearch.yml
 grep -n 'network.host\|cluster.name\|node.name' /etc/wazuh-indexer/opensearch.yml
 # (there should be only one of each; YAML indentation must be spaces, not tabs)
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl restart wazuh-indexer
+sleep 5
+sudo systemctl status wazuh-indexer --no-pager
