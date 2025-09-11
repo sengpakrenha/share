@@ -18,3 +18,10 @@ wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.8.
 
 TOKEN=$(curl -sk -u wazuh-wui:wazuh-wui https://127.0.0.1:55000/security/user/authenticate?raw=true)
 curl -sk -H "Authorization: Bearer $TOKEN" https://127.0.0.1:55000/manager/status?pretty
+
+
+# Current breaker limits & defaults
+curl -ku admin:admin https://127.0.0.1:9200/_cluster/settings?include_defaults=true | jq '.defaults.indices.breaker'
+
+# Heap & mem stats
+curl -ku admin:admin https://127.0.0.1:9200/_nodes/stats/jvm?pretty | jq '.nodes[].jvm.mem | {heap_used_in_bytes, heap_max_in_bytes}'
