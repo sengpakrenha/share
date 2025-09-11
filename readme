@@ -21,7 +21,7 @@ curl -sk -H "Authorization: Bearer $TOKEN" https://127.0.0.1:55000/manager/statu
 
 
 # Current breaker limits & defaults
-curl -ku admin:admin https://127.0.0.1:9200/_cluster/settings?include_defaults=true | jq '.defaults.indices.breaker'
+curl -ku admin:c5uUuWDF0fXzx2nAc1+Yg*if3vZI+T.X https://127.0.0.1:9200/_cluster/settings?include_defaults=true | jq '.defaults.indices.breaker'
 
 # Heap & mem stats
-curl -ku admin:admin https://127.0.0.1:9200/_nodes/stats/jvm?pretty | jq '.nodes[].jvm.mem | {heap_used_in_bytes, heap_max_in_bytes}'
+curl -ku admin:c5uUuWDF0fXzx2nAc1+Yg*if3vZI+T.X https://127.0.0.1:9200/_nodes/stats/jvm?pretty | jq '.nodes[].jvm.mem | {heap_used_in_bytes, heap_max_in_bytes}'
